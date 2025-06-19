@@ -9,7 +9,7 @@ import { useEffect } from "react"
 const ConnectTelegram = () => {
 
   const { setStep } = useSignupFlowContext()
-  
+
   useEffect(() => {
     setStep("connect-telegram")
   }, [])
@@ -17,9 +17,9 @@ const ConnectTelegram = () => {
   return (
     <div>
       <h2 className='text-center text-2xl font-bold mb-2'>Connect Telegram</h2>
-      <p className='text-center text-base mb-6'>All Communications on funcding trade requests will go here</p>
-      <div className="flex items-center">
-        <Link className={cn(buttonVariants())}>connect telegram</Link>
+      <p className='text-center text-base mb-6'>All Communications on funding trade requests will go here</p>
+      <div className="flex items-center justify-center">
+        <a href="" className={cn(buttonVariants())}>connect telegram</a>
       </div>
     </div>
   )
