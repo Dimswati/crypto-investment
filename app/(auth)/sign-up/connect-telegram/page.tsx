@@ -2,15 +2,12 @@
 
 declare global {
   interface Window {
-    onTelegramAuth: (user: any) => void;
+    onTelegramAuth?: (user: any) => void;
   }
 }
 
 import { useSignupFlowContext } from "@/app/context/SignupFlowContext"
-import { buttonVariants } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { Link } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 const ConnectTelegram = () => {
 
@@ -22,6 +19,7 @@ const ConnectTelegram = () => {
   }, [])
 
   useEffect(() => {
+
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-widget.js?7';
     script.setAttribute('data-telegram-login', 'FundedTradeBot');
@@ -42,8 +40,17 @@ const ConnectTelegram = () => {
         window.location.href = '/dashboard';
       });
     };
-
     document.getElementById('telegram-login-btn')?.appendChild(script);
+
+    return () => {
+
+      // Clean up to prevent memory leaks
+      delete window.onTelegramAuth
+      const container = document.getElementById("telegram-login-btn")
+      if(container) {
+        container.innerHTML = ""
+      }
+    }
   })
 
   return (

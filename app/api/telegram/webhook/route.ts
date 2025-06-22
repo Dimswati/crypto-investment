@@ -8,5 +8,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     console.log("Telegram webhook data: ", body)
 
+    // check for incoming message and respond accordingly
+
     return NextResponse.json({ success: true })
 }
