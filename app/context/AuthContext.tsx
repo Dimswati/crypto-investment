@@ -30,7 +30,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
                     userId: user.userId
                 })
             } catch (err) {
-                if(err instanceof AxiosError) {
+                if (err instanceof AxiosError) {
                     console.log(err.response?.data)
                 }
             }
