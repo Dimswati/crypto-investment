@@ -22,16 +22,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <DarkModeProvider>
-        <AuthContextProvider>
-          <body
-            className={`${poppins.className} antialiased`}
-          >
+      <body
+        className={`${poppins.className} antialiased`}
+      >
+        <DarkModeProvider>
+          <AuthContextProvider>
             <Header />
             {children}
-          </body>
-        </AuthContextProvider>
-      </DarkModeProvider>
+          </AuthContextProvider>
+        </DarkModeProvider>
+      </body>
     </html>
   );
 }
