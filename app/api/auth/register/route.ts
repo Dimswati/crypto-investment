@@ -51,5 +51,5 @@ export async function POST(req: NextRequest) {
         maxAge: 86400000
     })
 
-    return NextResponse.json({ success: true, user: createdUser.email })
+    return NextResponse.json({ success: true, email: createdUser.email, userId: createdUser.id })
 }

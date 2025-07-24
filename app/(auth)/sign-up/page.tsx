@@ -13,6 +13,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Input } from '@/components/ui/input'
 import axios from 'axios'
 import { useSignupFlowContext } from '@/app/context/SignupFlowContext'
+import { useAuthContext } from '@/app/context/AuthContext'
 
 const formSchema = z.object({
     email: z.string()
@@ -35,6 +36,7 @@ const SignUp = () => {
     // TABS: sign-up/verify-email/verify-phone
     const router = useRouter()
     const { setStep } = useSignupFlowContext()
+    const { setUser } = useAuthContext()
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     useEffect(() => {
@@ -60,10 +62,11 @@ const SignUp = () => {
             const res = await axios.post("/api/auth/register", data)
             // console.log("Created user ", res.data)
             const params = new URLSearchParams({
-                email: res.data.user,
+                email: res.data.email,
                 codeSent: "false"
             }).toString();
-
+            const { userId, email } = res.data
+            setUser(userId, email)
             router.replace(`/sign-up/verify-email?${params}`);
         } catch (err) {
             console.error(err)

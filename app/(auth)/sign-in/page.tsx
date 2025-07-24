@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import axios, { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
+import { useAuthContext } from "@/app/context/AuthContext"
 
 const formSchema = z.object({
   email: z.string().email({
@@ -26,6 +27,7 @@ const SignIn = () => {
   const [isSubmittting, setIsSubmitting] = useState(false)
 
   const router = useRouter()
+  const { setUser } = useAuthContext()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema)
@@ -34,12 +36,15 @@ const SignIn = () => {
   const onSubmit = async (data: SignInFormData) => {
     try {
       setIsSubmitting(true)
-      await axios.post("/api/auth/login", {
+      const res = await axios.post("/api/auth/login", {
         ...data
       })
+
+      const { userId, email } = res.data
+      setUser(userId, email)
       router.replace('/')
     } catch (error) {
-      if(error instanceof AxiosError) {
+      if (error instanceof AxiosError) {
         console.log(error.response?.data.error)
       }
     } finally {

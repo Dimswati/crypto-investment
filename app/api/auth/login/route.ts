@@ -57,5 +57,5 @@ export async function POST(req: NextRequest) {
         httpOnly: true
     })
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, userId: user.id, email: user.email })
 }
